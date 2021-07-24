@@ -19,3 +19,5 @@ else:
     print('Глубина', depth, 'Уровень опасности', danger)
 
 print('Приблизительная глубина безопасной кладки:', depth)
+
+print('Added to test difference between main and dev branches')
