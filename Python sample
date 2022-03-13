@@ -1,0 +1,59 @@
+class Gardener:
+    def __init__(self, garden):
+        self.garden = garden
+        self.potato_bag = []
+
+    def harvest(self, garden):
+        for i_potato in garden.potatoes:
+            if i_potato.is_ripe():
+                print('Harvested potatoes: {}'.format(len(self.potato_bag) + 1))
+                self.potato_bag.append(i_potato)
+
+
+class Potato:
+    states = {0: 'Nothing', 1: 'Seedling', 2: 'Green', 3: 'Ripe'}
+
+    def __init__(self, index):
+        self.index = index
+        self.state = 0
+
+    def grow(self):
+        if self.state < 3:
+            self.state += 1
+
+    def is_ripe(self):
+        if self.state == 3:
+            return True
+        return False
+
+    def print_state(self):
+        print('Potato {} state now is {}'.format(self.index,
+                                                 Potato.states[self.state]))
+
+
+class PotatoGarden:
+    def __init__(self, count):
+        self.potatoes = [Potato(index) for index in range(1, count + 1)]
+
+    def grow_all(self):
+        print('Potato growing!')
+        for i_potato in self.potatoes:
+            i_potato.grow()
+            i_potato.print_state()
+
+    def all_ripe(self):
+        if not all([i_potato.is_ripe() for i_potato in self.potatoes]):
+            print('Not ripe yet\n')
+            return False
+        else:
+            print('\nAll potatoes ripe 100%, go harvest!\n')
+            return True
+
+
+garden_ = PotatoGarden(10)
+bob = Gardener(garden_)
+
+while not garden_.all_ripe():
+    garden_.grow_all()
+else:
+    bob.harvest(garden_)
